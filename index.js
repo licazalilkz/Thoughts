@@ -5,9 +5,12 @@ const FileStore = require("session-file-store")(session);
 const flash = require("express-flash");
 const conn = require("./db/conn");
 
-const app = express();
+const app = express(); //iniciando express
+//Models
+const Thought = require("./models/Thought");
+const User = require("./models/User");
 
-//template engine
+//template engine do handlebars
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 
@@ -56,9 +59,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// chamando conexao com o banco
 conn
+  //.sync({ force: true })
   .sync()
   .then(() => {
     app.listen(3000);
   })
   .catch((err) => console.log(err));
+
+// fazer update dps, e forcar o banco a arrumar as interracoes entre tabelas
