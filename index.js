@@ -9,6 +9,10 @@ const app = express(); //iniciando express
 //Models
 const Thought = require("./models/Thought");
 const User = require("./models/User");
+// Import Routes
+const thoughtsRoutes = require("./routes/thoughtsRoutes");
+//Import Controllers
+const ThoughtController = require("./controllers/ThoughtController");
 
 //template engine do handlebars
 app.engine("handlebars", exphbs.engine());
@@ -58,6 +62,10 @@ app.use((req, res, next) => {
 
   next();
 });
+
+// routes
+app.use("/thoughts", thoughtsRoutes);
+app.get("/", ThoughtController.showThoughts);
 
 // chamando conexao com o banco
 conn
