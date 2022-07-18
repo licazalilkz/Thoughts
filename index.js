@@ -9,8 +9,11 @@ const app = express(); //iniciando express
 //Models
 const Thought = require("./models/Thought");
 const User = require("./models/User");
+
 // Import Routes
 const thoughtsRoutes = require("./routes/thoughtsRoutes");
+const authRoutes = require("./routes/authRoutes.js");
+
 //Import Controllers
 const ThoughtController = require("./controllers/ThoughtController");
 
@@ -64,8 +67,9 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use("/thoughts", thoughtsRoutes);
 app.get("/", ThoughtController.showThoughts);
+app.use("/thoughts", thoughtsRoutes);
+app.use("/", authRoutes);
 
 // chamando conexao com o banco
 conn
